@@ -79,7 +79,7 @@ const KeepAliveLayout = () => {
         </Dropdown>
       );
     },
-    [menuItems],
+    [menuItems, menuClick],
   );
 
   const tabItems = useMemo(() => {
@@ -98,7 +98,7 @@ const KeepAliveLayout = () => {
         closable: keepAliveTabs.length > 1,
       };
     });
-  }, [keepAliveTabs]);
+  }, [keepAliveTabs, renderTabTitle]);
 
   const onTabsChange = useCallback(
     (tabRoutePath: string) => {
