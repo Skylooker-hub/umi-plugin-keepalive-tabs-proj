@@ -1,0 +1,26 @@
+{
+  "name": "umi-plugin-keepalive-tabs",
+  "author": "HuangChenglin <429068173@qq.com>",
+  "version": "0.0.1",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "scripts": {
+    "dev": "father dev",
+    "build": "father build"
+  },
+  "keywords": [],
+  "authors": {
+    "name": "HuangChenglin <429068173@qq.com>",
+    "email": "429068173@qq.com"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "father": "^4.3.8",
+    "typescript": "^5.3.3",
+    "umi": "^4.1.0"
+  }
+}
