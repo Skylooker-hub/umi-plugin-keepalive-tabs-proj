@@ -11,7 +11,7 @@ A umi plugin
 ## Install
 
 ```bash
-pnpm i @skylooker/umi-plugin-keepalive-tabs
+pnpm i @huang1997/umi-plugin-keepalive-tabs
 
 ## 需要安装的依赖
 pnpm add @dnd-kit/core @dnd-kit/modifiers @dnd-kit/sortable @dnd-kit/utilities
