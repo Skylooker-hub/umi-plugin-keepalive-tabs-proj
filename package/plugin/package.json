@@ -1,5 +1,5 @@
 {
-  "name": "@huang1997/umi-plugin-keepalive-tabs",
+  "name": "@skylooker/umi-plugin-keepalive-tabs",
   "author": "HuangChenglin <429068173@qq.com>",
   "version": "0.1.0",
   "main": "dist/cjs/index.js",
@@ -22,5 +22,9 @@
     "father": "^4.3.8",
     "typescript": "^5.3.3",
     "umi": "^4.1.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
