@@ -50,9 +50,15 @@ export function useKeepAliveTabs() {
       const index = keepAliveTabs.findIndex((o) => o.routePath === routePath);
       if (keepAliveTabs[index].routePath === activeTabRoutePath) {
         if (index > 0) {
-          history.push(keepAliveTabs[index - 1].routePath);
+          history.push(
+            keepAliveTabs[index - 1]?.pathname ||
+              keepAliveTabs[index - 1].routePath,
+          );
         } else {
-          history.push(keepAliveTabs[index + 1].routePath);
+          history.push(
+            keepAliveTabs[index + 1]?.pathname ||
+              keepAliveTabs[index + 1].routePath,
+          );
         }
       }
       keepAliveTabs.splice(index, 1);
@@ -62,7 +68,7 @@ export function useKeepAliveTabs() {
 
       setKeepAliveTabs([...keepAliveTabs]);
     },
-    [activeTabRoutePath],
+    [activeTabRoutePath, keepAliveTabs],
   );
 
   // 关闭其他
@@ -82,7 +88,7 @@ export function useKeepAliveTabs() {
       const tab = keepAliveTabs.find((o) => o.routePath === routePath);
       history.push(tab?.pathname || routePath);
     },
-    [activeTabRoutePath],
+    [activeTabRoutePath, keepAliveTabs],
   );
 
   // 刷新tab
