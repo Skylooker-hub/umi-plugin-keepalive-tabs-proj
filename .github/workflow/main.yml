@@ -1,0 +1,25 @@
+name: CI Github Pages
+on:
+  push:
+    branches:
+      - main
+
+env:
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 7.2.1
+      - name: Install  ️
+        run: cd package/plugin && npm install --no-frozen-lockfile
+      - name: Build
+        run: cd package/plugin && npm run build
+      - name: Login to NPM registry
+        run: echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" > ~/.npmrc
+      - name: Deploy
+        run: cd package/plugin && npm publish
