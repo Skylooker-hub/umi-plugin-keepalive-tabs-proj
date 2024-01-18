@@ -8,6 +8,7 @@ export interface KeepAliveTab {
   key: string; // 这个key，后面刷新有用到它
   pathname: string;
   icon?: any;
+  search?: string;
   children: any;
 }
 
@@ -50,15 +51,15 @@ export function useKeepAliveTabs() {
       const index = keepAliveTabs.findIndex((o) => o.routePath === routePath);
       if (keepAliveTabs[index].routePath === activeTabRoutePath) {
         if (index > 0) {
-          history.push(
-            keepAliveTabs[index - 1]?.pathname ||
-              keepAliveTabs[index - 1].routePath,
-          );
+          history.push({
+            pathname: keepAliveTabs[index - 1].pathname,
+            search: keepAliveTabs[index - 1].search,
+          });
         } else {
-          history.push(
-            keepAliveTabs[index + 1]?.pathname ||
-              keepAliveTabs[index + 1].routePath,
-          );
+          history.push({
+            pathname: keepAliveTabs[index + 1].pathname,
+            search: keepAliveTabs[index + 1].search,
+          });
         }
       }
       keepAliveTabs.splice(index, 1);
@@ -68,7 +69,7 @@ export function useKeepAliveTabs() {
 
       setKeepAliveTabs([...keepAliveTabs]);
     },
-    [activeTabRoutePath, keepAliveTabs],
+    [keepAliveTabs, activeTabRoutePath],
   );
 
   // 关闭其他
@@ -86,9 +87,9 @@ export function useKeepAliveTabs() {
       setKeepAliveTabs((prev) => prev.filter((o) => o.routePath === routePath));
 
       const tab = keepAliveTabs.find((o) => o.routePath === routePath);
-      history.push(tab?.pathname || routePath);
+      history.push({pathname: tab.pathname, search: tab.search});
     },
-    [activeTabRoutePath, keepAliveTabs],
+    [keepAliveTabs, activeTabRoutePath],
   );
 
   // 刷新tab
@@ -131,6 +132,7 @@ export function useKeepAliveTabs() {
           pathname: matchRoute.pathname,
           children: matchRoute.children,
           icon: matchRoute.icon,
+          search: matchRoute.search,
         },
       ]);
     } else if (existKeepAliveTab.pathname !== matchRoute.pathname) {
@@ -144,6 +146,25 @@ export function useKeepAliveTabs() {
           prev[index].key = getKey();
           prev[index].pathname = matchRoute.pathname;
           prev[index].children = matchRoute.children;
+          prev[index].search = matchRoute.search;
+        }
+
+        delete keepAliveHiddenEvents.current[prev[index].routePath];
+        delete keepAliveShowEvents.current[prev[index].routePath];
+
+        return [...prev];
+      });
+    } else if (existKeepAliveTab.search !== matchRoute.search) {
+      // search不同
+      setKeepAliveTabs((prev) => {
+        const index = prev.findIndex(
+          (tab) => tab.routePath === matchRoute.routePath,
+        );
+
+        if (index >= 0) {
+          prev[index].key = getKey();
+          prev[index].children = matchRoute.children;
+          prev[index].search = matchRoute.search;
         }
 
         delete keepAliveHiddenEvents.current[prev[index].routePath];

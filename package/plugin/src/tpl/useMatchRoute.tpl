@@ -17,6 +17,7 @@ interface MatchRouteType {
   pathname: string; //  /user/1
   children: any;
   routePath: string; // /user/:id
+  search?: string;
   icon?: any;
 }
 
@@ -28,7 +29,7 @@ export function useMatchRoute() {
   // 获取所有路由
   const { routes } = useAppData();
   // 获取当前url
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   const [matchRoute, setMatchRoute] = useState<MatchRouteType | undefined>();
 
@@ -54,10 +55,11 @@ export function useMatchRoute() {
       title,
       pathname,
       children,
+      search,
       routePath: lastRoute.route.path,
       icon: (lastRoute.route as any).icon, // icon是拓展出来的字段
     });
-  }, [pathname]);
+  }, [pathname, search]);
 
   return matchRoute;
 }

@@ -90,7 +90,7 @@ const KeepAliveLayout = () => {
         children: (
           <div
             key={tab.key}
-            style={{ height: 'calc(100vh - 112px)', overflow: 'auto' }}
+            style={{ height: 'calc(100vh - 115px)', overflow: 'auto' }}
           >
             {tab.children}
           </div>
@@ -104,7 +104,10 @@ const KeepAliveLayout = () => {
     (tabRoutePath: string) => {
       const curTab = keepAliveTabs.find((o) => o.routePath === tabRoutePath);
       if (curTab) {
-        history.push(curTab?.pathname);
+        history.push({
+          pathname: curTab?.pathname,
+          search: curTab?.search,
+        });
       }
     },
     [keepAliveTabs],
