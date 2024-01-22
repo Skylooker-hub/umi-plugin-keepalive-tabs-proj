@@ -73,8 +73,7 @@ const KeepAliveLayout = () => {
           trigger={['contextMenu']}
         >
           <div style={{ margin: '-12px 0', padding: '12px 0' }}>
-            {tab.icon}
-            {tab.title}
+            {tab.icon} {tab.title}
           </div>
         </Dropdown>
       );

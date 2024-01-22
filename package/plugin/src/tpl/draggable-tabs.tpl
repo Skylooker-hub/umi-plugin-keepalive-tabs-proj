@@ -62,12 +62,6 @@ const DraggableTabs: React.FC<
     setItems(props.items || []);
   }, [props.items]);
 
-  // useEffect(() => {
-  //   if (onItemsChange) {
-  //     onItemsChange(items);
-  //   }
-  // }, [items]);
-
   return (
     <Tabs
       renderTabBar={(tabBarProps, DefaultTabBar) => (
